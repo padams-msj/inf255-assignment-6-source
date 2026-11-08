@@ -362,6 +362,5 @@ git push
   server is running.
 - `node_modules` is not committed, and `public/animals.json` is gone.
 - You did not change the animal data in `server/server.js`.
-- Your code is commented in your own words.
 - `README.md` starts with your **Reflections** section.
 - Your repository has at least three commits you made.
