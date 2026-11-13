@@ -9,9 +9,8 @@
 // Animal Data
 // ------------------------------------
 
-// The server owns the animals now. These are the same eight animals that
-// are in public/animals.json. Don't change them; the expected results in
-// README.md depend on them.
+// The server owns the animals now. These are the same eight animals the
+// board showed in Assignment 5. Don't change them.
 const animals = [
 	{
 		id: 1,
