@@ -89,19 +89,11 @@ In the **Routes** section, below `/api/animals`, write
 2. If you found one, send it with `res.json()`. Otherwise, send a 404:
    `res.status(404).json({ error: "Animal not found" })`.
 
-**Check:** open `/api/animals/3`, `/api/animals/99`, and `/api/animals/abc`
-and compare them with the API expected results below. To see the status
-code, open DevTools (F12), go to the **Network** tab, and refresh. The
-**Status** column shows `200` or `404`.
-
 ### TODO 3: Add the /available-animals and /adopted-animals routes
 
 Now add two more routes. `GET /api/available-animals` sends only the animals
 that aren't adopted, and `GET /api/adopted-animals` sends only the ones that
 are. Use `filter()`, the same way `visibleAnimals` does in `App.vue`.
-
-**Check:** `/api/available-animals` and `/api/adopted-animals` match the API
-expected results below.
 
 ### TODO 4: Load the animals from your API
 
@@ -136,11 +128,6 @@ and run `npm run dev` again.
 1. In `loadAnimals()`, change `"/animals.json"` to `"/api/animals"`.
 2. **Delete `public/animals.json`.** The server owns the animals now.
 
-**Check:** the board looks exactly as it did and matches every row of the
-board expected results below. In the **Network** tab, the board loads
-`animals`, not `animals.json`. Then stop the server (click terminal 1 and
-press Ctrl+C) and refresh the board. You should see the error message. Start
-the server again with `npm run server` and refresh.
 
 **Adopt** and **Return** still change only the browser's copy of the
 animals; the server doesn't know about them. Refresh, and every adoption is
@@ -200,10 +187,8 @@ git push
 
 ## Before you submit
 
-- `npm run server` and `npm run dev` both start, and the board loads from
+- `node --watch server.js` and `npm run dev` both start, and the board loads from
   the server.
-- Every route matches the API expected results, including the 404 cases.
-- The board matches the board expected results.
 - The browser console and the server terminal show no errors while the
   server is running.
 - `node_modules` is not committed, and `public/animals.json` is gone.
