@@ -11,35 +11,16 @@ npm install
 npm run dev
 ```
 
-Ctrl+click the `localhost` address. You should see the finished Assignment 5
-board. It still loads `public/animals.json`. By TODO 4, it will load from
-your server instead.
-
-This project runs **two programs at once**, the same way we did in class.
-From TODO 1 on, you'll keep two terminals open:
-
-| Terminal | Command | What it runs |
-| --- | --- | --- |
-| 1 | `npm run server` | Your Express API at `http://localhost:3000`. |
-| 2 | `npm run dev` | The Vue app, at the address Vite prints. |
-
-To open a second terminal, click the **+** in VS Code's terminal panel.
-
 ## Files
 
 - `server/server.js` is the server. It already holds the animals in an
-  array. You'll write the rest in TODOs 1 to 3.
+  array. 
 - `src/App.vue`, `src/components/AnimalCard.vue`, and
-  `src/components/AnimalControls.vue` are the completed Assignment 5 app.
-  You'll change `App.vue` and `AnimalCard.vue` in TODO 4.
+  `src/components/AnimalControls.vue` are the completed Assignment 5 app components.
 - `src/components/AnimalDetails.vue` is a new component that shows one
-  animal's details. It's finished. You'll use it in TODO 4.
-- `public/animals.json` is the old data file. You'll delete it in TODO 4.
-- `vite.config.js` is Vite's settings. You'll add one setting in TODO 4.
-- `.gitignore` keeps `node_modules` and `dist` out of your repository.
-
-**Do not change the animal data in `server/server.js`.** The expected results
-below depend on it.
+  animal's details. 
+- `public/animals.json` is the old data file. At the end of this assignment, you won't need this file anymore.
+- `vite.config.js` is Vite's settings. You'll add one setting to it so that Vue can communicate with the Express server
 
 ---
 
@@ -48,7 +29,7 @@ below depend on it.
 Complete the five TODOs in order. Each one ends with a check. Don't move on
 until the check works.
 
-### TODO 1: Set up Express and serve every animal
+### TODO 1: Set up your server to provide the animals
 
 1. **Install Express.** In the terminal, stop Vite with Ctrl+C, then run:
 
@@ -56,20 +37,7 @@ until the check works.
    npm install express
    ```
 
-   Check `package.json`: `express` should be listed under `dependencies`.
-   It's a regular dependency, not a dev dependency, because the server needs
-   it to run, not just to build.
-
-2. **Add a script.** In `package.json`, add this line to `"scripts"`:
-
-   ```json
-   "server": "node --watch server/server.js",
-   ```
-
-   `node` runs a JavaScript file outside the browser. `--watch` restarts the
-   server every time you save the file, so you don't have to.
-
-3. **Create the app.** At the top of `server/server.js`, where the first
+2. **Create the app.** At the top of `server/server.js`, where the first
    `TODO 1` comment is, import Express, create the app, and choose the port:
 
    ```js
@@ -79,7 +47,7 @@ until the check works.
    const port = 3000;
    ```
 
-4. **Write the first route.** In the **Routes** section, write a route that
+3. **Write the first route.** In the **Routes** section, write a route that
    answers `GET /api/animals` with the whole array:
 
    ```js
@@ -93,29 +61,28 @@ until the check works.
    in, and `res` is the response you send back. Send the array with
    `res.json(animals)`.
 
-5. **Start the server.** In the **Start the Server** section, call
+4. **Start the server.** In the **Start the Server** section, call
    `app.listen()` with the port and a function that logs
    `` `Server running at http://localhost:${port}` ``.
 
-6. **Run it.** In terminal 1, run `npm run server`. Then open a second
+5. **Run it.** In terminal 1, run `node --watch server.js`. Then open a second
    terminal and run `npm run dev` again.
 
 **Check:** terminal 1 says `Server running at http://localhost:3000`. Open
 `http://localhost:3000/api/animals` in the browser. You should see all eight
-animals as JSON, starting with Luna. (Firefox and Chrome both show JSON
-nicely. Chrome may need **Pretty-print** checked.)
+animals as JSON, starting with Luna. 
 
-### TODO 2: Return one animal by id, or a 404
+### TODO 2: Write a route to retrieve a single animal
 
-A **route parameter** is a part of the path that changes. In
+A **route parameter** is a part of the path that changes dynamically. In
 `/api/animals/:id`, the `:id` matches whatever comes after `/api/animals/`,
 and Express puts it in `req.params.id`. So for `/api/animals/3`,
-`req.params.id` is `"3"`.
+`req.params.id` will have a value of `"3"`.
 
 In the **Routes** section, below `/api/animals`, write
 `app.get("/api/animals/:id", (req, res) => { ... })`. It should:
 
-1. Convert the id with `Number(req.params.id)`.
+1. Convert the id to a number with `Number(req.params.id)`. Remember that everything is a string during a request.
 2. Find the animal with that id using `animals.find()`.
 3. If no animal matches, send status **404** with an error message, then
    `return` so nothing else runs:
@@ -125,8 +92,7 @@ In the **Routes** section, below `/api/animals`, write
    return;
    ```
 
-4. Otherwise, send the animal with `res.json()`. The status is **200**,
-   which Express uses unless you choose another.
+4. Otherwise, send the animal with `res.json()`. 
 
 **Check:** compare each address with the API expected results below:
 `/api/animals/3`, `/api/animals/99`, and `/api/animals/abc`. To see the
@@ -142,7 +108,7 @@ are. Use `filter()`, the same way `visibleAnimals` does in `App.vue`.
 **First, add them below the `/:id` route** and save. Then open
 `http://localhost:3000/api/animals/available`.
 
-You'll get `{"error":"Animal not found"}`. That's not a typo in your filter.
+You'll get `{"error":"Animal not found"}`. 
 Express checks routes **from top to bottom** and uses the **first one that
 matches**. Work out which route answered, and what `req.params.id` was.
 
