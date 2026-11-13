@@ -9,7 +9,6 @@
 import { ref, computed } from "vue";
 import AnimalCard from "./components/AnimalCard.vue";
 import AnimalControls from "./components/AnimalControls.vue";
-// TODO 4: Import AnimalDetails.
 
 // ------------------------------------
 // App Data
@@ -57,12 +56,6 @@ function toggleAdoption(animal) {
 	animal.adopted = !animal.adopted;
 }
 
-// ------------------------------------
-// Show One Animal's Details
-// ------------------------------------
-
-// TODO 4: Create selectedAnimal and detailsError, and write showDetails(id)
-// and closeDetails().
 
 // ------------------------------------
 // Filter, Sort, and Count
