@@ -108,14 +108,14 @@ are. Use `filter()`, the same way `visibleAnimals` does in `App.vue`.
 **Check:** `/api/available-animals` and `/api/adopted-animals` match the API
 expected results below.
 
-### TODO 4: Load the board from your API
+### TODO 4: Load the animals from your API
 
 **Part A: the proxy (`vite.config.js`)**
 
-The board runs on Vite's address (like `http://localhost:5173`) and the API
-runs on `http://localhost:3000`. They're different addresses, so the board
-can't just `fetch("/api/animals")`: Vite would look for that file itself and
-not find it.
+The animal cards run on Vite's address (like `http://localhost:5173`) and the API
+runs on `http://localhost:3000`. They're different addresses, so Vue
+can't just run `fetch("/api/animals")`: Vite would look for that file itself and
+not find it. There's no folder called "api" with another folder called "animals" in your Vue app!
 
 Vite can **forward** those requests for you. In `vite.config.js`, add a
 `server` setting next to `plugins`:
@@ -132,16 +132,14 @@ export default defineConfig({
 ```
 
 Now every request that starts with `/api` goes to Vite, Vite passes it to
-Express, and the answer comes back to the browser the same way. Vite restarts
+the server, and the response comes back to the browser the same way. Vite restarts
 on its own when you save `vite.config.js`. If it doesn't, stop it with Ctrl+C
 and run `npm run dev` again.
 
 **Part B: load the animals (`App.vue`)**
 
 1. In `loadAnimals()`, change `"/animals.json"` to `"/api/animals"`.
-2. **Delete `public/animals.json`.** The server owns the animals now, and
-   leaving the old file there would hide a mistake: if the fetch still used
-   the old path, the board would keep working.
+2. **Delete `public/animals.json`.** The server owns the animals now.
 
 **Check:** the board looks exactly as it did and matches every row of the
 board expected results below. In the **Network** tab, the board loads
