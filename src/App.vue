@@ -40,7 +40,8 @@ async function loadAnimals() {
 		animals.value = await response.json();
 	} catch (err) {
 		console.error(err);
-		error.value = "Sorry, the animals couldn't be loaded. Try refreshing the page.";
+		error.value =
+			"Sorry, the animals couldn't be loaded. Try refreshing the page.";
 	}
 
 	loading.value = false;
@@ -55,7 +56,6 @@ loadAnimals();
 function toggleAdoption(animal) {
 	animal.adopted = !animal.adopted;
 }
-
 
 // ------------------------------------
 // Filter, Sort, and Count
@@ -113,10 +113,9 @@ function setSort(sort) {
 		<section aria-labelledby="animals-heading">
 			<h2 id="animals-heading">Animals</h2>
 
-			<!-- TODO 4: The details panel and the details error go here. -->
-
 			<p v-if="!loading && !error" id="animal-count">
-				{{ availableCount }} of {{ animals.length }} animals are available for adoption.
+				{{ availableCount }} of {{ animals.length }} animals are available for
+				adoption.
 			</p>
 
 			<AnimalControls
@@ -132,7 +131,6 @@ function setSort(sort) {
 					There are no animals to show.
 				</p>
 				<div v-else>
-					<!-- TODO 4: Listen for the card's details event. -->
 					<AnimalCard
 						v-for="animal in visibleAnimals"
 						:key="animal.id"
