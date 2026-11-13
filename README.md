@@ -74,30 +74,27 @@ animals as JSON, starting with Luna.
 
 ### TODO 2: Write a route to retrieve a single animal
 
-A **route parameter** is a part of the path that changes dynamically. In
-`/api/animals/:id`, the `:id` matches whatever comes after `/api/animals/`,
-and Express puts it in `req.params.id`. So for `/api/animals/3`,
-`req.params.id` will have a value of `"3"`.
+In `/api/animals/:id`, the `:id` is a **route parameter**: it matches whatever
+comes after `/api/animals/`, and Express puts it in `req.params.id`. For
+`/api/animals/3`, `req.params.id` is `"3"` (a string, so it has to be
+converted with `Number()` before comparing).
 
 In the **Routes** section, below `/api/animals`, write
-`app.get("/api/animals/:id", (req, res) => { ... })`. It should:
+`app.get("/api/animals/:id", (req, res) => { ... })`. Inside it:
 
-1. Convert the id to a number with `Number(req.params.id)`. Remember that everything is a string during a request.
-2. Find the animal with that id using `animals.find()`.
-3. If no animal matches, send status **404** with an error message, then
-   `return` so nothing else runs:
+1. Find the animal with this line:
 
    ```js
-   res.status(404).json({ error: "Animal not found" });
-   return;
+   const animal = animals.find((a) => a.id === Number(req.params.id));
    ```
 
-4. Otherwise, send the animal with `res.json()`. 
+2. If you found one, send it with `res.json()`. Otherwise, send a 404:
+   `res.status(404).json({ error: "Animal not found" })`.
 
-**Check:** compare each address with the API expected results below:
-`/api/animals/3`, `/api/animals/99`, and `/api/animals/abc`. To see the
-status code, open DevTools (F12), select the **Network** tab, and refresh.
-The **Status** column shows `200` or `404`.
+**Check:** open `/api/animals/3`, `/api/animals/99`, and `/api/animals/abc`
+and compare them with the API expected results below. To see the status
+code, open DevTools (F12), go to the **Network** tab, and refresh. The
+**Status** column shows `200` or `404`.
 
 ### TODO 3: Add the /available-animals and /adopted-animals routes
 
